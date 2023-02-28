@@ -22,10 +22,6 @@ from tabulate import tabulate
 #                          --volume-type gp2 --migrate
 ######################################################################################
 
-def get_pvc_info(corev1, claim_ref, claim_namespace):
-    pvcs = corev1.read_namespaced_persistent_volume_claim(claim_ref, claim_namespace)
-    return pvcs
-
 def get_aws_volume_info(client, volume_id, type):
     if volume_id is None:
         return ('', '')
@@ -51,7 +47,7 @@ def get_aws_volume_info(client, volume_id, type):
 
     # Get volume type and migration status
     volume_type = vols[0]['VolumeType']
-            
+
     return (volume_id, volume_type)
 
 def migrate_gp2_to_gp3(aws, volume_id):
